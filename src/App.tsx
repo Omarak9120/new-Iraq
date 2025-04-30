@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -11,6 +10,8 @@ import NotFound from "./pages/NotFound";
 import Candidates from "./pages/Candidates";
 import Voting from "./pages/Voting";
 import Results from "./pages/Results";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,8 @@ const App = () => (
               <Route path="/candidates" element={<Candidates />} />
               <Route path="/voting" element={<Voting />} />
               <Route path="/results" element={<Results />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AnimatePresence>

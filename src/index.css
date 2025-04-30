@@ -1,5 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&family=Modern+Sans:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -60,13 +59,59 @@
     direction: rtl;
     text-align: right;
     font-family: 'Tajawal', sans-serif;
+    letter-spacing: -0.02em;
+    line-height: 1.8;
   }
 
   .en {
-    --font-sans: 'Plus Jakarta Sans', sans-serif;
+    --font-sans: 'Modern Sans', sans-serif;
     direction: ltr;
     text-align: left;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Modern Sans', sans-serif;
+  }
+
+  /* Arabic Typography Improvements */
+  .ar h1, .ar h2, .ar h3, .ar h4, .ar h5, .ar h6 {
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.4;
+  }
+
+  .ar p {
+    line-height: 1.8;
+    letter-spacing: -0.01em;
+    font-weight: 400;
+  }
+
+  .ar .text-gradient {
+    background: linear-gradient(to right, #8B5CF6, #EC4899);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Arabic Button Text */
+  .ar button {
+    letter-spacing: -0.01em;
+    font-weight: 500;
+  }
+
+  /* Arabic Input Fields */
+  .ar input, .ar textarea {
+    letter-spacing: -0.01em;
+    font-weight: 400;
+  }
+
+  /* Arabic Navigation */
+  .ar nav {
+    letter-spacing: -0.02em;
+    font-weight: 500;
+  }
+
+  /* Arabic Card Text */
+  .ar .card {
+    letter-spacing: -0.01em;
+    font-weight: 400;
   }
 }
 

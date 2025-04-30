@@ -3,11 +3,31 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import PageTransition from '../components/PageTransition';
 import { useLanguage } from '../contexts/LanguageContext';
-import { Vote, ArrowRight, Shield, CheckCircle2, Users } from 'lucide-react';
+import { Vote, ArrowRight } from 'lucide-react';
 import { Button } from '../components/ui/button';
+import PlatformFeatures from '../components/PlatformFeatures';
+import ElectionStats from '../components/ElectionStats';
+import PyramidLoader from '../components/PyramidLoader';
+import Footer from '../components/Footer';
+import { useNavigate } from 'react-router-dom';
+import './Index.css';
+
+const container = (delay: number) => ({
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay,
+      duration: 0.5,
+      ease: "easeOut"
+    }
+  }
+});
 
 const Index: React.FC = () => {
   const { t, language } = useLanguage();
+  const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -20,76 +40,26 @@ const Index: React.FC = () => {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
   const springY = useSpring(y, { stiffness: 100, damping: 30 });
 
-  // Floating elements animation
-  const floatingBallots = Array(5).fill(null).map((_, i) => ({
-    initialY: -20 - i * 30,
-    delay: i * 0.2,
-    x: (i % 2 === 0 ? 1 : -1) * (i + 1) * 50,
-  }));
-
-  // Features data
-  const features = [
-    {
-      icon: <Shield className="w-6 h-6" />,
-      title: language === 'ar' ? 'تصويت آمن' : 'Secure Voting',
-      description: language === 'ar'
-        ? 'نظام مشفر لحماية أصواتك'
-        : 'Encrypted system to protect your votes'
-    },
-    {
-      icon: <CheckCircle2 className="w-6 h-6" />,
-      title: language === 'ar' ? 'شفافية كاملة' : 'Full Transparency',
-      description: language === 'ar'
-        ? 'نتائج فورية وموثوقة'
-        : 'Instant and reliable results'
-    },
-    {
-      icon: <Users className="w-6 h-6" />,
-      title: language === 'ar' ? 'سهولة الاستخدام' : 'User-Friendly',
-      description: language === 'ar'
-        ? 'واجهة بسيطة وبديهية'
-        : 'Simple and intuitive interface'
-    }
-  ];
+  const handleStartVoting = () => {
+    navigate('/voting');
+  };
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden" ref={containerRef}>
-      <Navbar />
+    <div ref={containerRef} className="min-h-screen bg-background">
       <PageTransition>
+        <Navbar />
         <main className="relative">
           {/* Hero Section */}
-          <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
-            {/* Animated background elements */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              {floatingBallots.map((ballot, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ y: ballot.initialY, x: ballot.x, opacity: 0 }}
-                  animate={{
-                    y: [ballot.initialY, 20, ballot.initialY],
-                    x: [ballot.x, ballot.x + 20, ballot.x],
-                    opacity: [0, 1, 0]
-                  }}
-                  transition={{
-                    duration: 3,
-                    delay: ballot.delay,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                  className="absolute"
-                >
-                  <Vote 
-                    className="text-primary/30 w-12 h-12"
-                    style={{ transform: `rotate(${index * 45}deg)` }}
-                  />
-                </motion.div>
-              ))}
+          <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+            {/* Background elements */}
+            <div className="absolute inset-0 -z-10">
+              <div className="absolute top-20 left-1/4 w-64 h-64 bg-primary/30 rounded-full filter blur-3xl opacity-40 animate-float"></div>
+              <div className="absolute bottom-20 right-1/4 w-80 h-80 bg-accent/30 rounded-full filter blur-3xl opacity-30 animate-float" style={{ animationDelay: '2s' }}></div>
+              
+              {/* Grid pattern */}
+              <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.05)_1px,transparent_1px)] bg-[size:100px_100px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
             </div>
 
-            {/* Gradient background */}
-            <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background" />
-
-            {/* Main content */}
             <motion.div
               style={{ y: springY, opacity, scale }}
               className="container mx-auto px-4 pt-32 relative z-10"
@@ -104,14 +74,14 @@ const Index: React.FC = () => {
                   <Vote className="w-16 h-16 text-primary animate-bounce" />
                 </motion.div>
 
-                <motion.h1
-                  initial={{ scale: 0.9, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                  className="text-4xl md:text-6xl font-bold mb-6 text-gradient"
+                <motion.span
+                  variants={container(0.5)}
+                  initial="hidden"
+                  animate="visible"
+                  className="block text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-500 via-slate-500 to-white dark:to-black dark:from-purple-800 text-transparent bg-clip-text tracking-tight"
                 >
-                  {t('انتخابات العراق ٢٠٢٥', 'Iraq Elections 2025')}
-                </motion.h1>
+                  {t('ما هي شارك', 'what is Sharek')}
+                </motion.span>
                 
                 <motion.p
                   initial={{ y: 20, opacity: 0 }}
@@ -125,66 +95,52 @@ const Index: React.FC = () => {
                   )}
                 </motion.p>
 
-                <motion.div
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.6 }}
-                  className="flex flex-col sm:flex-row gap-4 justify-center"
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="start-voting-btn"
+                  onClick={handleStartVoting}
                 >
-                  <Button size="lg" className="text-lg">
-                    {t('ابدأ التصويت', 'Start Voting')}
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                  <Button size="lg" variant="outline" className="text-lg">
-                    {t('تعرف على المرشحين', 'Meet the Candidates')}
-                  </Button>
-                </motion.div>
+                  {t('ابدأ التصويت', 'Start Voting')}
+                </motion.button>
               </div>
             </motion.div>
           </section>
 
-          {/* Features Section */}
+          {/* Platform Features Section with Pyramid */}
           <section className="py-20 bg-card/50">
-            <div className="container mx-auto px-4">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-                className="text-center mb-12"
-              >
-                <h2 className="text-3xl font-bold mb-4">
-                  {t('مميزات المنصة', 'Platform Features')}
-                </h2>
-                <p className="text-muted-foreground max-w-2xl mx-auto">
-                  {t(
-                    'نقدم لكم منصة متكاملة للتصويت الإلكتروني مع ضمان الأمان والشفافية',
-                    'We provide a comprehensive electronic voting platform with guaranteed security and transparency'
-                  )}
-                </p>
-              </motion.div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {features.map((feature, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="bg-card/50 backdrop-blur-sm p-6 rounded-xl border border-primary/10"
-                  >
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                      {feature.icon}
-                    </div>
-                    <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                    <p className="text-muted-foreground">{feature.description}</p>
-                  </motion.div>
-                ))}
+            <div className="container mx-auto">
+              <div className="flex items-center justify-center gap-8 mb-12">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  viewport={{ once: true }}
+                  className="text-center"
+                >
+                  <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-white">
+                    {t('كيف تعمل', 'How it works')}
+                  </h2>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">
+                    {t(
+                      'شارك يربط المواطنين بممثليهم عبر أدوات تفاعلية لطرح الأسئلة، التصويت، والمشاركة المجتمعية',
+                      'Sharek connects citizens with their representatives through interactive tools for questions, voting, and civic engagement.'
+                    )}
+                  </p>
+                </motion.div>
+                <div className="hidden md:block">
+                  <PyramidLoader />
+                </div>
               </div>
+              
+              <PlatformFeatures />
             </div>
           </section>
+
+          {/* Election Statistics Section */}
+          <ElectionStats />
         </main>
+        <Footer />
       </PageTransition>
     </div>
   );

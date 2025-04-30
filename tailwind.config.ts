@@ -1,5 +1,5 @@
-
 import type { Config } from "tailwindcss";
+import animate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
@@ -78,6 +78,9 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        rotate: {
+          to: { transform: "translate(-50%, -50%) rotate(360deg)" }
+        },
         "fade-in": {
           "0%": { opacity: "0", transform: "translateY(10px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
@@ -110,6 +113,7 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        rotate: "rotate 8s linear infinite",
         "fade-in": "fade-in 0.3s ease-out forwards",
         "fade-out": "fade-out 0.3s ease-out forwards",
         "scale-in": "scale-in 0.2s ease-out",
@@ -120,5 +124,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [animate],
 } satisfies Config;

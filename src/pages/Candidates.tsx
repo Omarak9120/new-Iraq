@@ -3,13 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import PageTransition from '../components/PageTransition';
 import { useLanguage } from '../contexts/LanguageContext';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Star, Award, Users, Building2, GraduationCap, Briefcase } from 'lucide-react';
+import { Star, Award, Building2 } from 'lucide-react';
+import CandidateCard from '../components/CandidateCard';
+import '../components/CandidateCard.css';
 
 const candidatesData = [
   {
@@ -155,39 +156,16 @@ const Candidates: React.FC = () => {
               <motion.div
                 key={candidate.id}
                 variants={itemVariants}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
                 onClick={() => setSelectedCandidate(candidate.id)}
               >
-                <Card className="overflow-hidden transition-all duration-300 hover:shadow-xl">
-                  <CardContent className="p-0">
-                    <div className="relative">
-                      <div 
-                        className="h-32 w-full"
-                        style={{ backgroundColor: `${candidate.color}20` }}
-                      />
-                      <Avatar className="w-24 h-24 absolute -bottom-12 left-1/2 transform -translate-x-1/2 border-4 border-background">
-                        <AvatarImage src={`https://source.unsplash.com/${candidate.image}`} />
-                        <AvatarFallback>{candidate.name[language].charAt(0)}</AvatarFallback>
-                      </Avatar>
-                    </div>
-                    <div className="pt-16 pb-6 px-6 text-center">
-                      <h3 className="text-xl font-semibold mb-1">{candidate.name[language]}</h3>
-                      <Badge 
-                        className="mb-3"
-                        style={{ backgroundColor: candidate.color }}
-                      >
-                        {candidate.party[language]}
-                      </Badge>
-                      <p className="text-muted-foreground mb-4">
-                        {candidate.description[language]}
-                      </p>
-                      <Button variant="outline" className="w-full">
-                        {t('عرض الملف الشخصي', 'View Profile')}
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                <CandidateCard
+                  name={candidate.name[language]}
+                  party={candidate.party[language]}
+                  image={`https://source.unsplash.com/${candidate.image}`}
+                  likes={245}
+                  comments={89}
+                  views={1234}
+                />
               </motion.div>
             ))}
           </motion.div>
@@ -254,7 +232,7 @@ const Candidates: React.FC = () => {
                           <Card>
                             <CardHeader>
                               <CardTitle className="flex items-center gap-2">
-                                <Briefcase className="w-5 h-5" />
+                                <Building2 className="w-5 h-5" />
                                 {t('الخبرات', 'Experience')}
                               </CardTitle>
                             </CardHeader>
