@@ -204,7 +204,7 @@ const Voting: React.FC = () => {
                   </div>
                   <Button
                     onClick={handleNext}
-                    className="w-full"
+                    className="w-full bg-[#c8102e] hover:bg-[#c8102e]/90"
                   >
                     {language === 'ar' ? 'ابدأ التصويت' : 'Start Voting'}
                     <ChevronRight className="ml-2 h-4 w-4" />
@@ -287,6 +287,7 @@ const Voting: React.FC = () => {
                   <Button
                     onClick={handleNext}
                     disabled={!selectedCandidate}
+                    className="bg-[#c8102e] hover:bg-[#c8102e]/90"
                   >
                     {language === 'ar' ? 'التالي' : 'Next'}
                     <ChevronRight className="ml-2 h-4 w-4" />
@@ -346,7 +347,7 @@ const Voting: React.FC = () => {
                     </Button>
                     <Button
                       onClick={handleVote}
-                      className="bg-primary hover:bg-primary/90"
+                      className="bg-[#c8102e] hover:bg-[#c8102e]/90"
                     >
                       {language === 'ar' ? 'تأكيد التصويت' : 'Confirm Vote'}
                     </Button>
@@ -373,7 +374,7 @@ const Voting: React.FC = () => {
             className="max-w-4xl mx-auto"
           >
             <div className="text-center mb-8">
-              <h1 className="text-3xl md:text-4xl font-bold mb-4 text-gradient">
+              <h1 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-black via-[#c8102e] to-black text-transparent bg-clip-text">
                 {t('التصويت الإلكتروني', 'Electronic Voting')}
             </h1>
               <p className="text-muted-foreground">
@@ -432,7 +433,7 @@ const Voting: React.FC = () => {
                   </Button>
                   <Button
                     onClick={confirmVote}
-                    className="bg-primary hover:bg-primary/90"
+                    className="bg-[#c8102e] hover:bg-[#c8102e]/90"
                   >
                     {language === 'ar' ? 'تأكيد' : 'Confirm'}
                   </Button>
@@ -477,7 +478,7 @@ const Voting: React.FC = () => {
                     )}
                     <Button
                       onClick={() => window.location.href = '/'}
-                      className="w-full"
+                      className="w-full bg-[#c8102e] hover:bg-[#c8102e]/90"
                     >
                       {language === 'ar' ? 'العودة للرئيسية' : 'Return to Home'}
                     </Button>

@@ -3,6 +3,8 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from './Logo';
+import ThemeSwitcher from './ThemeSwitcher';
+import './HamburgerMenu.css';
 
 const Navbar: React.FC = () => {
   const { t, language, toggleLanguage } = useLanguage();
@@ -17,25 +19,6 @@ const Navbar: React.FC = () => {
     { title: t('التصويت', 'Voting'), href: '/voting' },
     { title: t('النتائج', 'Results'), href: '/results' },
   ];
-
-  // Animation variants for the floating menu lines
-  const lineVariants = {
-    closed: (index: number) => ({
-      y: index === 0 ? -2 : 2,
-      rotate: 0,
-      backgroundColor: "rgb(148, 0, 255)"
-    }),
-    hover: (index: number) => ({
-      y: index === 0 ? -1 : 1,
-      backgroundColor: "rgb(180, 85, 255)",
-      scale: 1.1
-    }),
-    open: (index: number) => ({
-      y: 0,
-      rotate: index === 0 ? 45 : -45,
-      backgroundColor: "rgb(180, 85, 255)"
-    })
-  };
 
   // Menu container variants
   const menuContainerVariants = {
@@ -114,23 +97,20 @@ const Navbar: React.FC = () => {
             animate={isFloatingMenuOpen ? "open" : "closed"}
           >
             {/* Menu Button */}
-            <motion.button
-              className="relative w-12 h-12 flex flex-col items-center justify-center gap-1.5"
-              onClick={() => setIsFloatingMenuOpen(!isFloatingMenuOpen)}
-              whileHover="hover"
-              animate={isFloatingMenuOpen ? "open" : "closed"}
-            >
-              {/* Menu Lines */}
-              {[0, 1].map((index) => (
-                <motion.span
-                  key={index}
-                  className="w-6 h-0.5 rounded-full origin-center"
-                  custom={index}
-                  variants={lineVariants}
-                  transition={{ duration: 0.3 }}
-                />
-              ))}
-            </motion.button>
+            <label className="hamburger">
+              <input 
+                type="checkbox" 
+                checked={isFloatingMenuOpen}
+                onChange={() => setIsFloatingMenuOpen(!isFloatingMenuOpen)}
+              />
+              <svg viewBox="0 0 32 32">
+                <path
+                  d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"
+                  className="line line-top-bottom"
+                ></path>
+                <path d="M7 16 27 16" className="line"></path>
+              </svg>
+            </label>
 
             {/* Menu Items */}
             <AnimatePresence>
@@ -158,6 +138,9 @@ const Navbar: React.FC = () => {
                       {item.text}
                     </motion.button>
                   ))}
+                  <div className="px-4 py-2">
+                    <ThemeSwitcher />
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -177,12 +160,14 @@ const Navbar: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center h-16 md:h-20">
             {/* Logo */}
-            <Logo />
+            <div className="w-1/4">
+              <Logo />
+            </div>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center justify-center flex-1">
-              <div className={`flex items-center ${
-                language === 'ar' ? 'space-x-reverse space-x-8' : 'space-x-8'
+              <div className={`flex items-center justify-center gap-6 bg-black/10 backdrop-blur-lg p-3 rounded-2xl ${
+                language === 'ar' ? 'space-x-reverse' : ''
               }`}>
                 {navItems.map((item, index) => (
                   <motion.div
@@ -194,25 +179,21 @@ const Navbar: React.FC = () => {
                   >
                     <Link
                       to={item.href}
-                      className={`text-foreground/80 hover:text-foreground transition-colors text-sm font-medium px-4 ${
-                        location.pathname === item.href ? 'text-primary' : ''
+                      className={`relative px-6 py-2.5 text-sm font-medium transition-all duration-300 rounded-xl
+                        ${location.pathname === item.href 
+                          ? 'text-white bg-white/20 backdrop-blur-md shadow-lg'
+                          : 'text-white/70 hover:text-white hover:bg-white/10'
                       }`}
                     >
                       {item.title}
                     </Link>
-                    {location.pathname === item.href && (
-                      <motion.div
-                        layoutId="navbar-indicator"
-                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.2 }}
-                      />
-                    )}
                   </motion.div>
                 ))}
               </div>
             </nav>
+
+            {/* Empty div for balance */}
+            <div className="w-1/4"></div>
           </div>
         </div>
       </motion.header>

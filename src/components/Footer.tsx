@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 import Logo from './Logo';
+import AnimatedButton from './ui/animated-button';
 
 const Footer: React.FC = () => {
   const { t, language } = useLanguage();
@@ -41,12 +42,17 @@ const Footer: React.FC = () => {
           {/* Logo and Description */}
           <div className="space-y-4">
             <Logo />
-            <p className="text-muted-foreground text-sm">
+            <p className="text-muted-foreground text-sm mb-8">
               {t(
                 'منصة رقمية متطورة لتسهيل العملية الانتخابية وضمان الشفافية والنزاهة',
                 'An advanced digital platform to facilitate the electoral process and ensure transparency and integrity'
               )}
             </p>
+            <Link to="/contact">
+              <AnimatedButton color="#c8102e">
+                {t('اتصل بنا', 'Contact Us')}
+              </AnimatedButton>
+            </Link>
           </div>
 
           {/* Main Links */}
@@ -100,21 +106,12 @@ const Footer: React.FC = () => {
           {/* Contact Info */}
           <div>
             <h3 className="text-lg font-semibold mb-4 text-white">
-              {t('اتصل بنا', 'Contact Us')}
+              {t('تواصل معنا', 'Get in Touch')}
             </h3>
-            <ul className="space-y-3">
-              {footerLinks.contact.map((item, index) => (
-                <motion.li
-                  key={index}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="flex items-center gap-2 text-muted-foreground"
-                >
-                  {item.icon}
-                  <span>{item.text}</span>
-                </motion.li>
-              ))}
+            <ul className="space-y-2 text-muted-foreground">
+              <li>Email: info@sharek.iq</li>
+              <li>Phone: +964 750 123 4567</li>
+              <li>{t('بغداد، العراق', 'Baghdad, Iraq')}</li>
             </ul>
           </div>
         </div>

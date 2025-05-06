@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 
@@ -11,12 +10,12 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'default', size = 'md', children, ...props }, ref) => {
     const variants = {
-      default: 'bg-primary text-primary-foreground hover:bg-primary/90',
-      outline: 'border border-primary text-foreground bg-transparent hover:bg-primary/10',
-      ghost: 'bg-transparent text-foreground hover:bg-primary/10',
-      link: 'text-primary underline-offset-4 hover:underline',
-      primary: 'bg-gradient-to-r from-primary to-accent text-white shadow-md hover:shadow-lg hover:opacity-90',
-      secondary: 'bg-secondary text-foreground hover:bg-secondary/90'
+      default: 'bg-gradient-to-r from-[#c8102e] to-[#2d2d2d] text-white hover:opacity-90',
+      outline: 'border border-[#c8102e] text-foreground bg-transparent hover:bg-[#c8102e]/10',
+      ghost: 'bg-transparent text-foreground hover:bg-[#c8102e]/10',
+      link: 'text-[#c8102e] underline-offset-4 hover:underline',
+      primary: 'bg-gradient-to-r from-[#c8102e] to-[#2d2d2d] text-white shadow-md hover:shadow-lg hover:opacity-90',
+      secondary: 'bg-[#2d2d2d] text-white hover:bg-[#2d2d2d]/90'
     };
 
     const sizes = {

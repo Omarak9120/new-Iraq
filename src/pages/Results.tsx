@@ -144,7 +144,7 @@ export default function Results() {
             animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
           >
-              <h1 className="text-3xl md:text-4xl font-bold mb-4">{t.election.resultsTitle}</h1>
+              <h1 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-black via-[#c8102e] to-black text-transparent bg-clip-text">{t.election.resultsTitle}</h1>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">{t.election.resultsSubtitle}</p>
             </motion.div>
           

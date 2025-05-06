@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import Button from './Button';
@@ -11,11 +10,11 @@ const HeroSection: React.FC = () => {
     <section className="relative min-h-screen pt-20 overflow-hidden flex flex-col items-center justify-center">
       {/* Background elements */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-20 left-1/4 w-64 h-64 bg-primary/30 rounded-full filter blur-3xl opacity-40 animate-float"></div>
-        <div className="absolute bottom-20 right-1/4 w-80 h-80 bg-accent/30 rounded-full filter blur-3xl opacity-30 animate-float" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-20 left-1/4 w-64 h-64 bg-[#c8102e]/30 rounded-full filter blur-3xl opacity-40 animate-float"></div>
+        <div className="absolute bottom-20 right-1/4 w-80 h-80 bg-[#2d2d2d]/30 rounded-full filter blur-3xl opacity-30 animate-float" style={{ animationDelay: '2s' }}></div>
         
         {/* Grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.05)_1px,transparent_1px)] bg-[size:100px_100px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(200,16,46,.05)_1px,transparent_1px),linear-gradient(90deg,rgba(200,16,46,.05)_1px,transparent_1px)] bg-[size:100px_100px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
       </div>
       
       <div className="container mx-auto px-4 py-12 md:py-24 flex flex-col items-center text-center">

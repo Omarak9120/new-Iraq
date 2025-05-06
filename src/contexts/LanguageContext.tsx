@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
 
 type Language = 'ar' | 'en';
@@ -24,9 +23,10 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   };
 
   useEffect(() => {
-    // Apply the language class to the document element
+    // Preserve the theme class while updating the language class
+    const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
     document.documentElement.className = '';
-    document.documentElement.classList.add(language);
+    document.documentElement.classList.add(language, currentTheme);
   }, [language]);
 
   return (

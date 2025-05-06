@@ -36,7 +36,7 @@ const PlatformFeatures: React.FC = () => {
 
   return (
     <section className="py-20 bg-card/50">
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -47,7 +47,7 @@ const PlatformFeatures: React.FC = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-white">
             {t('مميزات المنصة ', 'Platform Features')}
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
             {t(
               'نقدم لكم منصة متكاملة للتصويت الإلكتروني مع ضمان الأمان والشفافية',
               'We provide a comprehensive electronic voting platform with guaranteed security and transparency'
@@ -57,13 +57,20 @@ const PlatformFeatures: React.FC = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
           {features.map((feature, index) => (
-            <div key={index} className="min-h-[300px] w-full">
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="flex justify-center"
+            >
               <FeatureCard
                 title={feature.title}
                 description={feature.description}
                 icon={feature.icon}
               />
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
